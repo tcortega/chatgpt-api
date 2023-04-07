@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import * as types from './types'
 import { fetch as globalFetch } from './fetch'
 import { fetchSSE } from './fetch-sse'
-import { isValidUUIDv4 } from './utils'
+import { isValidUUIDv4, isDateTimeString } from './utils'
 
 export class ChatGPTUnofficialProxyAPI {
   protected _accessToken: string
@@ -191,6 +191,8 @@ export class ChatGPTUnofficialProxyAPI {
             if (data === '[DONE]') {
               return resolve(result)
             }
+
+            if (isDateTimeString(data)) return;
 
             try {
               const convoResponseEvent: types.ConversationResponseEvent =
