@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import * as types from './types'
 import { fetch as globalFetch } from './fetch'
 import { fetchSSE } from './fetch-sse'
-import { isValidUUIDv4, isDateTimeString } from './utils'
+import { isDateTimeString, isValidUUIDv4 } from './utils'
 
 export class ChatGPTUnofficialProxyAPI {
   protected _accessToken: string
@@ -192,7 +192,7 @@ export class ChatGPTUnofficialProxyAPI {
               return resolve(result)
             }
 
-            if (isDateTimeString(data)) return;
+            if (isDateTimeString(data)) return
 
             try {
               const convoResponseEvent: types.ConversationResponseEvent =
@@ -220,7 +220,7 @@ export class ChatGPTUnofficialProxyAPI {
                 }
               }
             } catch (err) {
-              reject(err)
+              console.warn('chatgpt unexpected JSON error', err)
             }
           },
           onError: (err) => {
